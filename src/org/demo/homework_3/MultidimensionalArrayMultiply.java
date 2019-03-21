@@ -4,37 +4,51 @@ import java.util.Arrays;
 import java.util.Random;
 
 public class MultidimensionalArrayMultiply {
-
+    /**
+     * 1) избегать односимвольных названий переменных
+     * 2) избегать дублирующихся  участков кода
+     * 3) общее поведение выносить в отдельные методы
+     *
+     * @param args
+     */
     public static void main(String[] args) {
-        Random r = new Random();
+
         int minBound = 10;
         int maxBound = 100;
 
-        int array1[][] = new int[10][20];
-        int array2[][] = new int[10][20];
-        int array3[][] = new int[10][20];
+        int firstDim = 10;
+        int  secondDim = 20;
+        int firstFactor[][] = new int[firstDim][secondDim];
+        int secondFactor[][] = new int[firstDim][secondDim];
 
-        for (int i = 0; i < array1.length; i++) {
-            for (int j = 0; j < array1.length; j++) {
-                array1[i][j] = r.nextInt(maxBound - minBound) + minBound;
-                array2[i][j] = r.nextInt(maxBound - minBound) + minBound;
-                array3[i][j] = array2[i][j] * array1[i][j];
+        int result[][] = new int[10][20];
+
+        Random randomGenerator = new Random();
+
+        for (int i = 0; i < firstFactor.length; i++) {
+            for (int j = 0; j < firstFactor.length; j++) {
+                firstFactor[i][j] = generateRandomNumber(randomGenerator, minBound, maxBound);
+                secondFactor[i][j] = generateRandomNumber(randomGenerator, minBound, maxBound);
+                result[i][j] = secondFactor[i][j] * firstFactor[i][j];
             }
         }
 
-        System.out.println("Array 1");
-        for(int i = 0; i< array1.length; i++) {
-            System.out.println(Arrays.toString(array1[i]));
-        }
+        printResult(firstFactor, "Array 1");
+        printResult(secondFactor, "Array 2");
+        printResult(result, "Result");
+    }
 
-        System.out.println("Array 2");
-        for(int i = 0; i< array2.length; i++) {
-            System.out.println(Arrays.toString(array2[i]));
+    public static int generateRandomNumber(Random randomGenerator, int min, int max) {
+        if (randomGenerator == null) {
+            return 0;
         }
+        return randomGenerator.nextInt(min - max) + min;
+    }
 
-        System.out.println("Array 3");
-        for(int i = 0; i< array3.length; i++) {
-            System.out.println(Arrays.toString(array3[i]));
+    public static void printResult(int[][] array, String arrayName) {
+        System.out.println(arrayName);
+        for(int i = 0; i< array.length; i++) {
+            System.out.println(Arrays.toString(array[i]));
         }
     }
 }
